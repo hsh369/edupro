@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+from django.core.validators import RegexValidator
 
 class UserManager(BaseUserManager):
     def create_user(self, email, date_of_birth, password=None):
@@ -36,12 +37,20 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-    email = models.EmailField(
-        verbose_name='email address',
-        max_length=255,
-        unique=True,
-    )
-    date_of_birth = models.DateField()
+    email = models.EmailField(max_length=255,unique=True)
+    username = models.CharField(max_length=10, unique =True, editable = False)
+    first_name = models.CharField(max_length= 100)
+    last_name = models.CharField(max_length= 100)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+9981234567'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # Validators should be a list
+    bio = models.CharField(max_length = 400, blank=True, null= True)
+    birthdate = models.DateField()
+    # image ?
+    rank = models.DecimalField(default=0, max_digits=2, decimal_places=1)
+    wallet = models.IntegerField(default=10)
+
+    #status = ?
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -68,3 +77,7 @@ class User(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+class Connection(models.Model):
+    user_id = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+    follow_id = models.ForeignKey("accounts.User", on_delete=models.CASCADE)

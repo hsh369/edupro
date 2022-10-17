@@ -83,3 +83,10 @@ class Answer(models.Model):
     def __str__(self):
         """String for representing the MyModelName object (in Admin site etc.)."""
         return self.answer
+
+class Comment(models.Model):
+    comment = models.CharField( max_length=100)
+    publish_date = models.DateField(auto_now_add=True)
+    user_id = models.ForeignKey("accounts.User", on_delete=models.SET_NULL, blank =True, null= True)
+    tutorial_id = models.ForeignKey("tutorials.Tutorial", on_delete=models.CASCADE)
+
