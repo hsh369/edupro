@@ -1,5 +1,4 @@
-from email.policy import default
-from statistics import mode
+from multiprocessing.util import abstract_sockets_supported
 from django.db import models
 from django.urls import reverse
 # Create your models here.
@@ -10,11 +9,17 @@ class Tutorial(models.Model):
     description = models.CharField(max_length=300)
     rank = models.DecimalField(default=0, max_digits=2, decimal_places=1)
     price = models.IntegerField(default=0)
+    votes = models.IntegerField(default=0)
+
+    #auto filled fields
     created_date = models.DateField(auto_now_add=True)
     last_modified = models.DateField(auto_now=True)
-    #class_id = models.ForeignKey()
-    #user_id = models.ForeignKey()
-
+    
+    #Relations with other tables
+    type_id = models.ForeignKey("tutorials.TutorialType", verbose_name=("Tutorial Type"), on_delete=models.SET_NULL, blank= True, null=True)
+    class_id = models.ForeignKey("classes.Class", verbose_name=("Class"), on_delete=models.SET_NULL, blank=True, null=True)
+    user_id = models.ForeignKey("accounts.User", verbose_name=("Creator"), on_delete=models.CASCADE)
+    
     class Meta:
         ordering = ['-rank']
 
@@ -28,7 +33,7 @@ class Tutorial(models.Model):
         return self.name
 
 class Blog(models.Model):
-    # image?
+    image = models.ImageField(upload_to='blogs',blank=True, null=True)
     name = models.CharField(max_length=300)
     content = models.TextField()
     created_date = models.DateField(auto_now_add=True)
@@ -49,7 +54,7 @@ class Blog(models.Model):
         return self.name    
 
 class Task(models.Model):
-    # image ?
+    image = models.ImageField(upload_to='tasks',blank=True, null=True)
     question = models.CharField(max_length=500)
     answer = models.CharField(max_length=500)
     tutorial_id = models.ForeignKey(
@@ -73,6 +78,7 @@ class Answer(models.Model):
     task_id = models.ForeignKey("tutorials.Task", on_delete=models.CASCADE)
 
     class Meta:
+        abstract = True
         ordering = ['pk']
 
     # Methods
@@ -90,3 +96,6 @@ class Comment(models.Model):
     user_id = models.ForeignKey("accounts.User", on_delete=models.SET_NULL, blank =True, null= True)
     tutorial_id = models.ForeignKey("tutorials.Tutorial", on_delete=models.CASCADE)
 
+class TutorialType(models.Model):
+    name = models.CharField(max_length=50)
+    tutorials_count = models.IntegerField(default=0)

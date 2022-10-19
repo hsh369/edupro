@@ -10,6 +10,6 @@ class Class(models.Model):
 
 
 class Member(models.Model):
-    class_id = models.ForeignKey("Classes.Class", on_delete=models.CASCADE)
+    class_id = models.ForeignKey("classes.Class", on_delete=models.CASCADE)
     user_id = models.ForeignKey("accounts.User",  on_delete=models.CASCADE)
     joined_date = models.DateField( auto_now_add=True)
