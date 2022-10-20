@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #added third party apps
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 
     #local apps
     'classes',
@@ -55,6 +56,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    #cors 
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'edupro.urls'
@@ -77,7 +82,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'edupro.wsgi.application'
 
+# CORS Config
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
+# CORS_ALLOWED_ORIGINS = [
+# # "https://domain.com",
+# # "https://api.domain.com",
+# # "http://localhost:8080",
+# "http://45.9.230.43:54122",
+# "http://127.0.0.1:5500"
+# ]
+ALLOWED_HOSTS = ['*']
+ALLOW_ANY = True
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -91,7 +108,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
