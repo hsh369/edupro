@@ -82,4 +82,9 @@ class User(AbstractBaseUser):
 
 # class Connection(models.Model):
 #     user_id = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
-#     follow_id = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+#     following_id = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+
+#     class Meta:
+#         unique_together = ['user_id', 'following_id']
+
+    

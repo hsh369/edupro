@@ -1,6 +1,6 @@
 import imp
 from rest_framework import serializers
-from . models import Tutorial,Blog,Task,Answer,Comment,TutorialType
+from . models import Tutorial,Blog,Task,TaskAnswer,Comment,TutorialType
 
 
 class BlogSerializer(serializers.ModelSerializer):
@@ -23,9 +23,9 @@ class TutorialSerializer(serializers.ModelSerializer):
 
 
 
-class AnswerSerializer(serializers.ModelSerializer):
+class TaskAnswerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Answer
+        model = TaskAnswer
         fields = '__all__'
 
 class CommentSerializer(serializers.ModelSerializer):

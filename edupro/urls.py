@@ -18,6 +18,16 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
+#custom admin site
+from django.contrib import admin
+
+admin.site.site_header = 'edupro admin'
+admin.site.site_title = 'edupro'
+admin.site.index_title = 'EDUPRO administration'
+admin.empty_value_display = '**Empty**'
+#deloyed url
+#admin.site.site_url = 'http://edupro.com/'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tutorials/',include('tutorials.urls'))
