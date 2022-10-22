@@ -23,7 +23,7 @@ class Tutorial(models.Model):
         "Tutorial Type"), on_delete=models.SET_NULL, blank=True, null=True)
     class_id = models.ForeignKey("classes.Class", verbose_name=(
         "Class"), on_delete=models.SET_NULL, blank=True, null=True)
-    user_id = models.ForeignKey("accounts.User", verbose_name=(
+    user_id = models.ForeignKey("accounts.User",related_name='tutorials', verbose_name=(
         "Creator"), on_delete=models.CASCADE)
 
     class Meta:
@@ -43,7 +43,6 @@ class Tutorial(models.Model):
         self.votes = self.votes+1
         self.rank = (total + rate)/self.votes
         super().save(self)
-
 
 class Blog(models.Model):
     image = models.ImageField(upload_to='blogs', blank=True, null=True)

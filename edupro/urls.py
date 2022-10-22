@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 
 #custom admin site
 from django.contrib import admin
-
 admin.site.site_header = 'edupro admin'
 admin.site.site_title = 'edupro'
 admin.site.index_title = 'EDUPRO administration'
@@ -28,7 +27,17 @@ admin.empty_value_display = '**Empty**'
 #deloyed url
 #admin.site.site_url = 'http://edupro.com/'
 
+
+from tutorials.views import api_root
+
 urlpatterns = [
+    path('', api_root),
     path('admin/', admin.site.urls),
-    path('tutorials/',include('tutorials.urls'))
+    path('tutorials/',include('tutorials.urls')),
+    path('class/',include('classes.urls')),
+    path('accounts/',include('accounts.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls')),
+]
