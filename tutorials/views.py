@@ -1,31 +1,57 @@
 from django.shortcuts import render
 
 from rest_framework.viewsets import generics
+from rest_framework import viewsets
 
 from .models import Tutorial
-from . serializers import TutorialSerializer
+from .serializers import *
 
 from rest_framework import permissions
 from .permissions import IsOwnerOrReadOnly
 
-# Create your views here.
-class TutorialList(generics.ListCreateAPIView):
+# Create your views here.     
+
+# TutorialCrud operations
+class TutorialList(generics.ListAPIView):
     queryset = Tutorial.objects.all()
-    serializer_class = TutorialSerializer
-    permission_classes = [permissions.IsAuthenticated,IsOwnerOrReadOnly]
+    serializer_class = TutorialListSerializer
+    #permission_classes = [permissions.IsAuthenticated]
 
+class TutorialCreate(generics.CreateAPIView):
+    queryset = Tutorial.objects.all()
+    serializer_class = TutorialDetailCreateSerializer
+    permission_classes = [permissions.IsAuthenticated,IsOwnerOrReadOnly] 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(user_id=self.request.user)
+
+class TutorialDetail(generics.RetrieveAPIView):
+    queryset = Tutorial.objects.all()
+    serializer_class = TutorialDetailCreateSerializer
+    #permission_classes = [permissions.IsAuthenticated,IsOwnerOrReadOnly] 
+
+    
+
+class TutorialUpdate(generics.UpdateAPIView):
+    queryset = Tutorial.objects.all()
+    serializer_class = TutorialDetailCreateSerializer
+    permission_classes = [permissions.IsAuthenticated,IsOwnerOrReadOnly] 
+
+class TutorialDelete(generics.DestroyAPIView):
+    queryset = Tutorial.objects.all()
+    serializer_class = TutorialDetailCreateSerializer
+    permission_classes = [permissions.IsAuthenticated,IsOwnerOrReadOnly] 
 
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.reverse import reverse
+class BlogViewSet(viewsets.ModelViewSet):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        tutorial = self.kwargs['pk']
+        return Blog.objects.filter(tutorial_id=tutorial)
 
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'users': reverse('user-list', request=request, format=format),
-        'tutorials': reverse('tutorial-list', request=request, format=format)
-    })

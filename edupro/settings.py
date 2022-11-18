@@ -24,11 +24,8 @@ SECRET_KEY = 'django-insecure-6ryq+)#8a!+_5r_1880g*4mxkqkd2klp%5e17)1x&v2o)q=m7d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -60,6 +57,7 @@ MIDDLEWARE = [
     #cors 
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'edupro.urls'
@@ -82,19 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'edupro.wsgi.application'
 
-# CORS Config
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
 
-# CORS_ALLOWED_ORIGINS = [
-# # "https://domain.com",
-# # "https://api.domain.com",
-# # "http://localhost:8080",
-# "http://45.9.230.43:54122",
-# "http://127.0.0.1:5500"
-# ]
-ALLOWED_HOSTS = ['*']
-ALLOW_ANY = True
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -133,11 +119,8 @@ AUTH_USER_MODEL = 'accounts.User'
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Asia/Tashkent'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -151,11 +134,59 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#Media which users upload to server
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+#rest_framework settings
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 1
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+  
 }
+
+# CORS Config
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    #REACT app run on port 3000
+"https://127.0.0.1:3000",
+"http://localhost:3000",
+
+"https://172.20.220.157:3000",
+"https://172.20.220.157:8000",
+"https://172.20.220.157"
+]
+
+
+ALLOWED_HOSTS = ['*']
+ALLOW_ANY = True
+
+CORS_ORIGIN_WHITELIST = [
+    'http://172.20.221.88:8000',
+    'http://172.20.221.88',
+    'http://172.20.220.157:8000',
+    'http://172.20.220.157',
+    "http://172.20.220.157:3000",
+    "http://172.20.220.157:8000",
+    "http://172.20.220.157",
+
+    "http://192.168.192.19:8000",
+    "http://192.168.192.19:3000",
+    "http://192.168.192.19",
+
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://localhost",
+
+    "http://172.20.221.110:8000",
+    "http://172.20.221.110:3000",
+    "http://172.20.221.110",
+]
+
+CORS_ORIGIN_ALLOW_ALL = True

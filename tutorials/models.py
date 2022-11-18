@@ -32,7 +32,7 @@ class Tutorial(models.Model):
     # Methods
     def get_absolute_url(self):
         """Returns the URL to access a particular instance of MyModelName."""
-        return reverse('model-detail-view', args=[str(self.pk)])
+        return reverse('tutorial-detail-view', args=[str(self.pk)])
 
     def __str__(self):
         """String for representing the MyModelName object (in Admin site etc.)."""
@@ -51,7 +51,7 @@ class Blog(models.Model):
     created_date = models.DateField(auto_now_add=True)
     last_modified = models.DateField("Last modified", auto_now=True)
     tutorial_id = models.ForeignKey(
-        "tutorials.Tutorial", verbose_name="Tutorial", on_delete=models.CASCADE)
+        "tutorials.Tutorial", verbose_name="Tutorial",related_name='blogs', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['pk']
@@ -71,7 +71,7 @@ class Task(models.Model):
     question = models.CharField("Question", max_length=500)
 
     tutorial_id = models.ForeignKey(
-        "tutorials.Tutorial", verbose_name="Tutorial", on_delete=models.CASCADE)
+        "tutorials.Tutorial",related_name='tasks', verbose_name="Tutorial", on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['pk']
@@ -130,7 +130,6 @@ class Comment(models.Model):
         if self.rank:
             Tutorial.set_rank(self.tutorial_id, self.rank)
         super().save(*args, **kwargs)
-
 
 class TutorialType(models.Model):
     name = models.CharField(max_length=50)

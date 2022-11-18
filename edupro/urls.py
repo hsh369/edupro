@@ -18,6 +18,7 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework import urls
 #custom admin site
 from django.contrib import admin
 admin.site.site_header = 'edupro admin'
@@ -28,7 +29,7 @@ admin.empty_value_display = '**Empty**'
 #admin.site.site_url = 'http://edupro.com/'
 
 
-from tutorials.views import api_root
+from accounts.views import api_root
 
 urlpatterns = [
     path('', api_root),
@@ -39,5 +40,5 @@ urlpatterns = [
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
-    path('api-auth/', include('rest_framework.urls')),
+    path('auth/', include('rest_framework.urls')),
 ]

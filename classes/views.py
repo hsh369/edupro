@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView,CreateAPIView
+from rest_framework import viewsets
+from .models import Class
+from .serializers import ClassSerializer
 
-# Create your views here.
-class ClassDetail(ListAPIView):
-    pass
+
+
+class ClassViewSet(viewsets.ModelViewSet):
+    queryset = Class.objects.all()
+    serializer_class = ClassSerializer
