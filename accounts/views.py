@@ -18,7 +18,6 @@ def api_root(request, format=None):
         'users': reverse('user-list', request=request, format=format),
         'tutorials': reverse('tutorial-list', request=request, format=format),
         'classes': reverse('tutorial-list', request=request, format=format),
-     
     })
 
 

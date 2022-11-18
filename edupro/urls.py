@@ -31,11 +31,18 @@ admin.empty_value_display = '**Empty**'
 
 from accounts.views import api_root
 
+from rest_framework import routers
+
+from classes.views import ClassViewSet
+
+router = routers.SimpleRouter()
+router.register(r'classes',ClassViewSet)
+
 urlpatterns = [
     path('', api_root),
     path('admin/', admin.site.urls),
     path('tutorials/',include('tutorials.urls')),
-    path('class/',include('classes.urls')),
+    path('',include((router.urls, 'classes'))),
     path('accounts/',include('accounts.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

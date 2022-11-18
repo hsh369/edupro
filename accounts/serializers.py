@@ -1,4 +1,3 @@
-from dataclasses import field, fields
 from rest_framework import serializers
 from .models import User
 from tutorials.models import Tutorial
@@ -20,6 +19,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         'last_name': {'required': True},
         'password': {'write_only': True}
         }
+
 class UserListSerializer(serializers.ModelSerializer):
     
     url = serializers.HyperlinkedIdentityField(
