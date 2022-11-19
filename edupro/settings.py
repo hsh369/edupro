@@ -154,13 +154,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    #REACT app run on port 3000
-"https://127.0.0.1:3000",
-"http://localhost:3000",
 
-"https://172.20.220.157:3000",
-"https://172.20.220.157:8000",
-"https://172.20.220.157"
+    "http://192.168.192.19:8000",
+    "http://192.168.192.19:3000",
+    "http://192.168.192.19",
 ]
 
 
@@ -168,25 +165,10 @@ ALLOWED_HOSTS = ['*']
 ALLOW_ANY = True
 
 CORS_ORIGIN_WHITELIST = [
-    'http://172.20.221.88:8000',
-    'http://172.20.221.88',
-    'http://172.20.220.157:8000',
-    'http://172.20.220.157',
-    "http://172.20.220.157:3000",
-    "http://172.20.220.157:8000",
-    "http://172.20.220.157",
 
     "http://192.168.192.19:8000",
     "http://192.168.192.19:3000",
     "http://192.168.192.19",
-
-    "http://localhost:8000",
-    "http://localhost:3000",
-    "http://localhost",
-
-    "http://172.20.221.110:8000",
-    "http://172.20.221.110:3000",
-    "http://172.20.221.110",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
