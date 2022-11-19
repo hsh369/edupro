@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Our amazingtutors{% endblock %} 
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users</title>
+
+    <!-- styles -->
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <html>
+      <body>
+        <h1>Tutorials</h1>
+        {% for tutorial in tutorials %}
+
+        <div class="card mb-3" style="max-width: 18rem">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img
+                src="https://i.pinimg.com/280x280_RS/e6/06/f4/e606f4dabac2abc63f4bdb0a91a85250.jpg"
+                class="img-fluid rounded-start"
+                alt="user photo"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{tutorial.title}}
+                </h5>
+
+                <p class="card-text">Rank: {{tutorial.description}}</p>
+                
+                <p class="card-text">Bio:  {{tutorial.description}}</p>
+                <p class="card-text">
+                  <small class="text-muted">Last seen 3 mins ago</small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </body>
+    </html>
+  </body>
+</html>
+
+{% endblock %}

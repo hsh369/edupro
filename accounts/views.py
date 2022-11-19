@@ -11,6 +11,9 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.response import Response
+
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
@@ -25,7 +28,15 @@ def api_root(request, format=None):
 class UserList(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserListSerializer
+    renderer_classes = [TemplateHTMLRenderer]
     #permission_classes = [IsAdminUser]
+
+    template_name = 'user_list.html'
+
+    def get(self, request):
+        queryset = User.objects.all()
+        return Response({'users': queryset})
+
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):

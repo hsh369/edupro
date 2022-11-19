@@ -9,6 +9,9 @@ from .serializers import *
 from rest_framework import permissions
 from .permissions import IsOwnerOrReadOnly
 
+
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.response import Response
 # Create your views here.     
 
 # TutorialCrud operations
@@ -16,6 +19,15 @@ class TutorialList(generics.ListAPIView):
     queryset = Tutorial.objects.all()
     serializer_class = TutorialListSerializer
     #permission_classes = [permissions.IsAuthenticated]
+
+    renderer_classes = [TemplateHTMLRenderer]
+    #permission_classes = [IsAdminUser]
+
+    template_name = 'tutorials_list.html'
+
+    def get(self, request):
+        queryset = Tutorial.objects.all()
+        return Response({'tutorials': queryset})
 
 class TutorialCreate(generics.CreateAPIView):
     queryset = Tutorial.objects.all()
