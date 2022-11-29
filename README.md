@@ -10,6 +10,5 @@ Asosiy konsepsiyalar:
  2. Ustozlar o'z talabalari maxsus sinflar ochish imkoniyati
  3. Imtihonlar uchun tayyorgarlik 
  
-Bu hammaga manfaatli bo'ladi degan umiddamiz.
  
- Barchaga omad!
+ YAKUNLANMAGAN!
